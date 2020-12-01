@@ -213,6 +213,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1406603110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1406603112}
+  - component: {fileID: 1406603111}
+  m_Layer: 0
+  m_Name: MyFakeGamePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1406603111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406603110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155142a7b21f1b543b092843e3bb9dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CloneParrent: {fileID: 2120343580}
+--- !u!4 &1406603112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406603110}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.89988565, y: 0.49343866, z: -16.820143}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1671206474
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,10 +416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a84e98e1b954e4c906ca633f1d5e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPosition: {fileID: 2120343582}
-  SpawnObject: {fileID: 2120343580}
-  SpawnRate: 1
-  CountSpawnObjects: 3
+  SpawnRules:
+  - {fileID: 2120343583}
 --- !u!114 &2050234798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,10 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a84e98e1b954e4c906ca633f1d5e73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPosition: {fileID: 0}
-  SpawnObject: {fileID: 0}
-  SpawnRate: 0
-  CountSpawnObjects: 0
+  SpawnRules: []
 --- !u!1 &2120343580
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,8 +441,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2120343582}
   - component: {fileID: 2120343581}
+  - component: {fileID: 2120343583}
   m_Layer: 0
-  m_Name: Test
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -473,3 +513,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2120343583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120343580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55e0c33eb1d1a4428d0a61c515aa705, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnObject: {fileID: 2120343580}
+  SpawnRateSeconds: 1
+  SpawnShiftSeconds: 2
+  CountSpawnObjects: 2
