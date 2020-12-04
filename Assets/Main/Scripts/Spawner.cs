@@ -1,26 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-   // public Transform SpawnPosition; 
     public List<SpawnRule> SpawnRules = new List<SpawnRule>();
+    public Func<UnityEngine.Object, Vector3, Quaternion, UnityEngine.Object> SpawnNewObject;
 
-    public IGamePool<GameObject> GamePool;
+    private Vector3 SpawnPosition; 
 
     void Start()
-    {
-        // Каким-то нормальным образом надо сделать передачу GamePool
-        // GetComponent<IGamePool<GameObject>>() не работает, хотя на сцене есть объект реализующий этот интерфейс
-        // Так же интерфейс не отображается для интерактивной передачи реализации интерфейса в юнити (путем перетаскивания которое)
+    { 
+        SpawnPosition = this.transform.position;
+
+        if (SpawnNewObject is null)
+            SpawnNewObject = Instantiate;
         
         foreach(var spawnRule in SpawnRules)
         {
-            GamePool = new FakeGamePool()
-            {
-                CloneParrent = spawnRule.gameObject
-            };
             if (spawnRule.SpawnRateSeconds != 0 || spawnRule.CountSpawnObjects <= 0)
                 StartCoroutine(Spawn(spawnRule));
         }
@@ -32,7 +30,7 @@ public class Spawner : MonoBehaviour
         for(var i = 0; i < spawnRule.CountSpawnObjects; i++)
         {
             yield return new WaitForSeconds(spawnRule.SpawnRateSeconds);
-            GamePool.Spawn(this.transform.position, Quaternion.identity);
+            SpawnNewObject(spawnRule.SpawnObject, SpawnPosition, Quaternion.identity);
         }
     }
 }
