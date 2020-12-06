@@ -16,9 +16,9 @@ namespace TowerDefense.GamePool
             _objectsInPool = new Dictionary<Type, Queue<IPoolable>>();
         }
 
-        public Pool(Transform poolFacadeTransform, List<GameObject> gameObjects) : this(poolFacadeTransform)
+        public Pool(Transform poolFacadeTransform, List<PoolableObject> poolObjects) : this(poolFacadeTransform)
         {
-            FillContainer(gameObjects);
+            FillContainer(poolObjects);
         }
 
         //Main interface
@@ -55,20 +55,20 @@ namespace TowerDefense.GamePool
         //-------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------
 
-        private void FillContainer(List<GameObject> gameObjects)
+        private void FillContainer(List<PoolableObject> poolObjects)
         {
-            foreach (var gameObject in gameObjects)
+            foreach (var poolObject in poolObjects)
             {                
-                InstantiateObjectNTimesAndPutInContainer(gameObject);
+                InstantiateObjectNTimesAndPutInContainer(poolObject);
             }
         }
-        private void InstantiateObjectNTimesAndPutInContainer(GameObject gameObject)
+        private void InstantiateObjectNTimesAndPutInContainer(PoolableObject poolObject)
         {
-            var count = CastInIPoolable(gameObject).Count;
+            var count = poolObject.count;
 
             for (int i = 0; i < count; i++)
             {
-                var newGameObject = GameObject.Instantiate(gameObject);
+                var newGameObject = GameObject.Instantiate(poolObject.gameObject);
                 AddGameObjectInContainer(newGameObject);
             }
         }

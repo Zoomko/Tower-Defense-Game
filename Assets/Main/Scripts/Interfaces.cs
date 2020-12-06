@@ -9,8 +9,6 @@ namespace TowerDefense.Interfaces
     {
         Type Type { get; }
         GameObject GetGameObject();
-        MonoBehaviour GetMonoBehaviour();
-
-        int Count { get;}
+        MonoBehaviour GetMonoBehaviour();        
     }
 }
