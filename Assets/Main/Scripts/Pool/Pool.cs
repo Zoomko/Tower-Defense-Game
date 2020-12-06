@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TowerDefense.Interfaces;
@@ -118,7 +117,7 @@ namespace TowerDefense.GamePool
         
         private void AddIPoolableInContainer(IPoolable poolableObject)
         {           
-            Type type = poolableObject.GetType();
+            Type type = poolableObject.Type;
 
             PreparingForGettingInPool(poolableObject.GetGameObject());
 
@@ -130,7 +129,7 @@ namespace TowerDefense.GamePool
             PreparingForGettingInPool(gameObject);
 
             IPoolable castedObject = CastInIPoolable(gameObject);
-            Type type = castedObject.GetType();
+            Type type = castedObject.Type;
 
             AddIPoolableObjectInContainerByTypeWithoutPreparing(type, castedObject);
         }
