@@ -7,9 +7,7 @@ using TowerDefense.Interfaces;
 namespace TowerDefense.GamePool
 {
     public class PoolFacade : MonoBehaviour
-    {
-        //Используется Singleton, т.к. это будет единственный объект на сцене
-        //Можно убрать, если делигировать все обязанности какому-то объекту на сцене
+    {        
         #region Singleton
         private static PoolFacade _instance;
         public static PoolFacade Instance {
@@ -24,14 +22,19 @@ namespace TowerDefense.GamePool
 
         [SerializeField]
         private List<GameObject> _objects;
-        private Pool<MonoBehaviour> _pool;
+        private Pool _pool;
 
         private void Awake()
         {
             _instance = this;
-            _pool = new Pool<MonoBehaviour>(transform, _objects);
-            
+            _pool = new Pool(transform, _objects);
         }
+
+        public T Take<T>() where T : MonoBehaviour,IPoolable => _pool.Take<T>();
+        public GameObject TakeGameObject<T>() where T : MonoBehaviour, IPoolable => _pool.TakeGameObject<T>();
+
+        public void Put(GameObject GameObject) => _pool.Put(GameObject);
+        public void Put(IPoolable IPoolableObject) => _pool.Put(IPoolableObject);
 
     }    
 }

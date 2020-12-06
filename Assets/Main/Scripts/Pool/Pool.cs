@@ -6,7 +6,7 @@ using TowerDefense.Interfaces;
 
 namespace TowerDefense.GamePool
 {
-    public class Pool<T> where T : MonoBehaviour, IPoolable
+    public class Pool
     {
         private Dictionary<Type, Queue<IPoolable>> _objectsInPool;
         private Transform _poolFacadeTransform;
@@ -24,26 +24,23 @@ namespace TowerDefense.GamePool
         //Main interface
         //-------------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------
-        public GameObject TakeGameObject<T>()
+        public GameObject TakeGameObject<T>() where T : MonoBehaviour,IPoolable
         {
-            var poolableObject = TakeIPoolableObject<T>();
+            var poolableObject = Take<T>();
             return poolableObject.GetGameObject();
         }
 
-        public IPoolable TakeIPoolableObject<T>()
-        {
+        public T Take<T>() where T : MonoBehaviour, IPoolable
+        {            
             Type typeOfRequestedObject = typeof(T);
 
-            if (HasIPoolableObjectKeyInContainer(typeOfRequestedObject))
-            {
-                IPoolable foundObject = GetObjectFromContainerByType(typeOfRequestedObject);
-                PreparingForGettingFromPool(foundObject);
-                return foundObject;
-            }
-            else
-            {
-                throw new UnityException("Pool doesn't have this type of object");
-            }
+            CheckСonditionForTakingObjectFromContainer(typeOfRequestedObject);
+
+            IPoolable foundObject = GetObjectFromContainerByType(typeOfRequestedObject);
+            PreparingForGettingFromPool(foundObject);
+            T castedObject = foundObject as T;
+
+            return castedObject;            
         }
 
         public void Put(GameObject gameObject)
@@ -61,8 +58,18 @@ namespace TowerDefense.GamePool
         private void FillContainer(List<GameObject> gameObjects)
         {
             foreach (var gameObject in gameObjects)
+            {                
+                InstantiateObjectNTimesAndPutInContainer(gameObject);
+            }
+        }
+        private void InstantiateObjectNTimesAndPutInContainer(GameObject gameObject)
+        {
+            var count = CastInIPoolable(gameObject).Count;
+
+            for (int i = 0; i < count; i++)
             {
-                AddGameObjectInContainer(gameObject);
+                var newGameObject = GameObject.Instantiate(gameObject);
+                AddGameObjectInContainer(newGameObject);
             }
         }
         private IPoolable GetObjectFromContainerByType(Type type)
@@ -88,6 +95,7 @@ namespace TowerDefense.GamePool
             }
             else return false;
         }
+       
         private IPoolable CreateNewIPoolableObjectByType(Type type)
         {
             var lastGameObjectInSection = _objectsInPool[type].Peek();
@@ -100,19 +108,14 @@ namespace TowerDefense.GamePool
             gameObject.SetActive(false);
             gameObject.transform.SetParent(_poolFacadeTransform);
         }
-        private bool HasIPoolableObjectKeyInContainer(Type type)
-        {            
-            if (_objectsInPool.ContainsKey(type))
-                return true;
-            else return false;
-        }
+        
         private void PreparingForGettingFromPool(IPoolable poolable)
         {
             var gameObject = poolable.GetGameObject();
             gameObject.SetActive(true);
             gameObject.transform.SetParent(null);
         }
-
+        
         private void AddIPoolableInContainer(IPoolable poolableObject)
         {           
             Type type = poolableObject.GetType();
@@ -150,5 +153,15 @@ namespace TowerDefense.GamePool
             else
                 throw new UnityException("Argument doesn't contain IPoolable interface");
         }
+        private void CheckСonditionForTakingObjectFromContainer(Type type)
+        {
+            ThrowExpetionIfIPoolableObjectKeyIsNotInContainer(type);           
+        }
+        private void ThrowExpetionIfIPoolableObjectKeyIsNotInContainer(Type type)
+        {
+            if (!_objectsInPool.ContainsKey(type))
+                throw new UnityException("Object with this type isn't in container");
+        }
+        
     }
 }
