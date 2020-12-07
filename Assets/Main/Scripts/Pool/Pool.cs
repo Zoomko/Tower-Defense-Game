@@ -26,7 +26,7 @@ namespace TowerDefense.GamePool
         public GameObject TakeGameObject<T>() where T : MonoBehaviour,IPoolable
         {
             var poolableObject = Take<T>();
-            return poolableObject.GetGameObject();
+            return poolableObject.gameObject;
         }
 
         public T Take<T>() where T : MonoBehaviour, IPoolable
@@ -98,7 +98,7 @@ namespace TowerDefense.GamePool
         private IPoolable CreateNewIPoolableObjectByType(Type type)
         {
             var lastGameObjectInSection = _objectsInPool[type].Peek();
-            var newGameObject = GameObject.Instantiate(lastGameObjectInSection.GetGameObject());
+            var newGameObject = GameObject.Instantiate(lastGameObjectInSection.gameObject);
             IPoolable poolableComponent = newGameObject.GetComponent<IPoolable>();
             return poolableComponent;
         }
@@ -110,7 +110,7 @@ namespace TowerDefense.GamePool
         
         private void PreparingForGettingFromPool(IPoolable poolable)
         {
-            var gameObject = poolable.GetGameObject();
+            var gameObject = poolable.gameObject;
             gameObject.SetActive(true);
             gameObject.transform.SetParent(null);
         }
@@ -119,7 +119,7 @@ namespace TowerDefense.GamePool
         {           
             Type type = poolableObject.Type;
 
-            PreparingForGettingInPool(poolableObject.GetGameObject());
+            PreparingForGettingInPool(poolableObject.gameObject);
 
             AddIPoolableObjectInContainerByTypeWithoutPreparing(type, poolableObject);
         }

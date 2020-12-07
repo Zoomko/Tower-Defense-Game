@@ -31,11 +31,5 @@ namespace TowerDefense.Sample.Pool
 
             PoolFacade.Instance.Put(this);
         }
-
-        public GameObject GetGameObject()
-        {
-            return gameObject;
-        }
-
     } 
 }

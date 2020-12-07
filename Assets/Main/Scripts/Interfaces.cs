@@ -5,7 +5,7 @@ namespace TowerDefense.Interfaces
 { 
     public interface IPoolable
     {
-        Type Type { get; }
-        GameObject GetGameObject();             
+        GameObject gameObject { get;  }
+        Type Type { get; }             
     }
 }
