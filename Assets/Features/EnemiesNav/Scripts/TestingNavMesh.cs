@@ -9,8 +9,6 @@ public class TestingNavMesh : MonoBehaviour
 {
     public NavMeshAgent NavMeshAgent;
 
-    public float Z;
-
     private void Start()
     {
     }
@@ -21,19 +19,12 @@ public class TestingNavMesh : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            Vector3 mousePos = Input.mousePosition;
-            mousePos.z = Camera.main.nearClipPlane;
-            var worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-
-            Debug.Log(pos);
-            Debug.Log(worldPosition);
             Move(pos);
         }
     }
 
     public void Move(Vector2 target)
     {
-       // NavMeshAgent.SetDestination(target);
+        NavMeshAgent.SetDestination(target);
     }
 }
