@@ -606,7 +606,8 @@ MonoBehaviour:
         m_MethodName: CreateTower
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 11400000, guid: c324e596cac83f24782111e92e97e78f,
+            type: 2}
           m_ObjectArgumentAssemblyTypeName: TowerDefense.ScriptableObjects.Towers.TowerInfo,
             PlayModeAssembly
           m_IntArgument: 0
@@ -5742,7 +5743,8 @@ MonoBehaviour:
         m_MethodName: CreateTower
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 11400000, guid: 7be904478afc9174d8629fadfbe0f582,
+            type: 2}
           m_ObjectArgumentAssemblyTypeName: TowerDefense.ScriptableObjects.Towers.TowerInfo,
             PlayModeAssembly
           m_IntArgument: 0
