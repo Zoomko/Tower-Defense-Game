@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8da8ce053d1f44aad2eee3e4331cc9, type: 3}
   m_Name: Poppy
   m_EditorClassIdentifier: 
-  _image: {fileID: 0}
-  _bulletImage: {fileID: 0}
-  _range: 0
-  _attackSpeed: 0
-  _damage: 0
+  _image: {fileID: 2980149248268456660, guid: 23d8fff6b78771e4190ae298fd0ae518, type: 3}
+  _bulletImage: {fileID: -6625326142150802998, guid: 23d8fff6b78771e4190ae298fd0ae518,
+    type: 3}
+  _range: 10
+  _attackSpeed: 5
+  _damage: 10

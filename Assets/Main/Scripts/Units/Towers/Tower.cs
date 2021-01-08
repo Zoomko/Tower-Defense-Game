@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TowerDefense.Interfaces;
 using TowerDefense.ScriptableObjects.Towers;
 using UnityEngine;
 
 namespace TowerDefense.Units.Tower
 {
-    public class Tower : MonoBehaviour
+    public class Tower : MonoBehaviour,IPoolable
     {
         [SerializeField]
         private TowerInfo _info;
@@ -16,11 +18,13 @@ namespace TowerDefense.Units.Tower
             } 
         }
 
+        public Type Type => typeof(Tower);
+
         private SpriteRenderer _spriteRenderer;
 
         private void Awake()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();            
             if (_info != null)
                 InitTower();
         }
