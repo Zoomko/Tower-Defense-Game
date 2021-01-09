@@ -36,10 +36,7 @@ namespace TowerDefense.Grid.Arrangement
             Debug.Log(mousePosition);            
             GridLayout gridLayout = transform.parent.GetComponentInParent<GridLayout>();            
             Vector3Int cellPosition = gridLayout.WorldToCell(mousePosition);
-            _newTowerPosition = cellPosition;
-
-            //КОСТЫЛЬ
-            _newTowerPosition.y += 1f;
+            _newTowerPosition = cellPosition + _tilemapForUnits.tileAnchor;
            
             TileHasBeenSelected?.Invoke();
         }
