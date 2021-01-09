@@ -11,17 +11,19 @@ public class Spawner : MonoBehaviour
 
     private Vector3 SpawnPosition; 
 
-    void Start()
+    void Awake()
     {
-        SpawnPosition = this.transform.position;
-
-        if (SpawnNewObject is null)
-            SpawnNewObject = (obj, pos, q) =>  Instantiate(obj, pos, q, this.transform);
+        
     }
 
     public void StartSpawn()
     {
-        for(var i = 0; i < SpawnWaves.Count; i++)
+        SpawnPosition = this.transform.position;
+
+        if (SpawnNewObject == null)
+            SpawnNewObject = (obj, pos, q) => Instantiate(obj, pos, q, this.transform);
+
+        for (var i = 0; i < SpawnWaves.Count; i++)
         {
             var shiftInSeconds = 0;
             if (ShiftSecondsForWaveSpawn.Count > i)
