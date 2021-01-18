@@ -21,7 +21,7 @@ namespace TowerDefense.GamePool
 
         [SerializeField]
         private List<PoolableObject> _objects;
-        private Pool _pool;
+        private Pool _pool;        
 
         private void Awake()
         {
